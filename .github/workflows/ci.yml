@@ -25,14 +25,13 @@ jobs:
       - name: Update codegen dependencies
         run: moon -C template_codegen update
 
+      - name: Build template codegen
+        run: moon build template_codegen --target native
+
       - name: Install template codegen
         run: |
           mkdir -p "$HOME/.moon/bin"
-          cat > "$HOME/.moon/bin/template_codegen" <<'EOF'
-          #!/usr/bin/env bash
-          set -euo pipefail
-          moon -C "$PWD" run "$GITHUB_WORKSPACE/template_codegen" -- "$@"
-          EOF
+          cp _build/native/debug/build/justjavac/template_codegen/template_codegen "$HOME/.moon/bin/template_codegen"
           chmod +x "$HOME/.moon/bin/template_codegen"
 
       - name: Check
