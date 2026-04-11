@@ -1,7 +1,7 @@
 ///|
 test "parse template tags" {
   let source = "<h1><%= title |> trim %></h1><%# hidden %><%- body %>"
-  let template = try! @template_parser.parse("page.mtpl", source)
+  let template = try! @parser.parse("page.mtpl", source)
   json_inspect(template.nodes, content=[
     [
       "Text",
@@ -64,7 +64,7 @@ test "parse template tags" {
 ///|
 test "parse include and statements" {
   let source = "<% if ok { %>\nok\n<% } %><%~ \"partials/footer.mtpl\" %>"
-  let template = try! @template_parser.parse("page.mtpl", source)
+  let template = try! @parser.parse("page.mtpl", source)
   inspect(
     template.nodes.length(),
     content=(
@@ -86,7 +86,7 @@ test "parse include and statements" {
 
 ///|
 test "invalid include reports an error" {
-  let result = try? @template_parser.parse("bad.mtpl", "<%~ footer %>")
+  let result = try? @parser.parse("bad.mtpl", "<%~ footer %>")
   guard result
     is Err(InvalidInclude(path="bad.mtpl", offset=0, content="footer")) else {
     fail("expected InvalidInclude")
@@ -95,7 +95,7 @@ test "invalid include reports an error" {
 
 ///|
 test "unclosed tag reports an error" {
-  let result = try? @template_parser.parse("bad.mtpl", "hello <% if true {")
+  let result = try? @parser.parse("bad.mtpl", "hello <% if true {")
   guard result is Err(UnclosedTag(path="bad.mtpl", offset=6)) else {
     fail("expected UnclosedTag")
   }

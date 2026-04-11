@@ -1,3 +1,0 @@
-import {
-  "justjavac/template_ast" @ast,
-}

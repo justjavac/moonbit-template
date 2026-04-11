@@ -1,8 +1,8 @@
 # justjavac/template
 
 [![template coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template)](https://codecov.io/gh/justjavac/moonbit-template)
-[![template_ast coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_ast)](https://codecov.io/gh/justjavac/moonbit-template)
-[![template_parser coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_parser)](https://codecov.io/gh/justjavac/moonbit-template)
+[![template_codegen/ast coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_codegen_ast)](https://codecov.io/gh/justjavac/moonbit-template)
+[![template_codegen/parser coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_codegen_parser)](https://codecov.io/gh/justjavac/moonbit-template)
 [![template_codegen coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_codegen)](https://codecov.io/gh/justjavac/moonbit-template)
 
 `justjavac/template` is a precompiled template engine for MoonBit.
@@ -66,9 +66,8 @@ let html = try! page.render()
 ## Modules
 
 - `justjavac/template`: runtime `Render`, escaping, safe HTML, formatting, render errors, and filters.
-- `justjavac/template_ast`: shared AST and source location model.
-- `justjavac/template_parser`: Sailfish-like tag parser with embedded MoonBit snippets.
 - `justjavac/template_codegen`: MoonBit source generation and the installable `template_codegen` CLI.
+  Its `ast` and `parser` subpackages provide the shared AST and Sailfish-like tag parser.
 - `justjavac/template_examples`: example packages and tests.
 
 The important rule is dependency direction: generated templates should depend

@@ -1,0 +1,3 @@
+import {
+  "justjavac/template_codegen/ast" @ast,
+}

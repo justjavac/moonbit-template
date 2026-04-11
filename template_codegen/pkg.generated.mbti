@@ -2,7 +2,7 @@
 package "justjavac/template_codegen"
 
 import {
-  "justjavac/template_ast",
+  "justjavac/template_codegen/ast",
   "moonbitlang/core/debug",
 }
 
@@ -19,7 +19,7 @@ pub fn qualify_template_code(String, Array[String]) -> String
 
 pub fn run_cli(Array[String]) -> Unit raise
 
-pub fn scan_source(String, String) -> Array[@template_ast.TemplateBinding] raise CodegenError
+pub fn scan_source(String, String) -> Array[@ast.TemplateBinding] raise CodegenError
 
 pub fn template_input(source_path~ : String, template_path~ : String, struct_name~ : String, field_names? : Array[String], content~ : String) -> TemplateInput
 

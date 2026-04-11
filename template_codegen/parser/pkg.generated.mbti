@@ -1,13 +1,13 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "justjavac/template_parser"
+package "justjavac/template_codegen/parser"
 
 import {
-  "justjavac/template_ast",
+  "justjavac/template_codegen/ast",
   "moonbitlang/core/debug",
 }
 
 // Values
-pub fn parse(String, String) -> @template_ast.Template raise ParseError
+pub fn parse(String, String) -> @ast.Template raise ParseError
 
 // Errors
 pub(all) suberror ParseError {
