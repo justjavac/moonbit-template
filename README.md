@@ -1,9 +1,6 @@
 # justjavac/template
 
-[![template coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template)](https://codecov.io/gh/justjavac/moonbit-template)
-[![template_codegen/ast coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_codegen_ast)](https://codecov.io/gh/justjavac/moonbit-template)
-[![template_codegen/parser coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_codegen_parser)](https://codecov.io/gh/justjavac/moonbit-template)
-[![template_codegen coverage](https://codecov.io/gh/justjavac/moonbit-template/branch/main/graph/badge.svg?component=template_codegen)](https://codecov.io/gh/justjavac/moonbit-template)
+[![coverage](https://img.shields.io/codecov/c/github/justjavac/moonbit-template/main?label=coverage)](https://codecov.io/gh/justjavac/moonbit-template)
 
 `justjavac/template` is a precompiled template engine for MoonBit.
 
