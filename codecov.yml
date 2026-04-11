@@ -4,15 +4,7 @@ component_management:
       name: template
       paths:
         - template/**
-    - component_id: template_codegen_ast
-      name: template_codegen/ast
-      paths:
-        - template_codegen/ast/**
-    - component_id: template_codegen_parser
-      name: template_codegen/parser
-      paths:
-        - template_codegen/parser/**
     - component_id: template_codegen
       name: template_codegen
       paths:
-        - template_codegen/*.mbt
+        - template_codegen/**
