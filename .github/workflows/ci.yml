@@ -22,8 +22,18 @@ jobs:
           moon version --all
           moon update
 
+      - name: Update codegen dependencies
+        run: moon -C template_codegen update
+
       - name: Install template codegen
-        run: moon install ./template_codegen
+        run: |
+          mkdir -p "$HOME/.moon/bin"
+          cat > "$HOME/.moon/bin/template_codegen" <<'EOF'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          moon -C "$PWD" run "$GITHUB_WORKSPACE/template_codegen" -- "$@"
+          EOF
+          chmod +x "$HOME/.moon/bin/template_codegen"
 
       - name: Check
         run: moon check
