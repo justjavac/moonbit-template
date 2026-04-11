@@ -1,0 +1,53 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "justjavac/template"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn default(String, fallback~ : String) -> String
+
+pub fn escape_html(String) -> String
+
+pub fn lower(String) -> String
+
+pub fn[T : Show] render_value(T) -> String
+
+pub fn replace(String, old~ : String, new~ : String) -> String
+
+pub fn safe_html(String) -> SafeHtml
+
+pub fn trim(String) -> String
+
+pub fn trim_end(String) -> String
+
+pub fn trim_start(String) -> String
+
+pub fn upper(String) -> String
+
+pub fn write_escaped(StringBuilder, String) -> Unit
+
+pub fn write_raw(StringBuilder, String) -> Unit
+
+// Errors
+pub(all) suberror RenderError {
+  Message(String)
+  InvalidInclude(String)
+} derive(Eq, @debug.Debug)
+
+// Types and methods
+pub struct SafeHtml {
+  value : String
+}
+pub fn SafeHtml::new(String) -> Self
+pub fn SafeHtml::to_string(Self) -> String
+pub impl Show for SafeHtml
+
+// Type aliases
+
+// Traits
+pub(open) trait Render {
+  render(Self) -> String raise
+}
+
