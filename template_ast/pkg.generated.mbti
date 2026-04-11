@@ -1,0 +1,69 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "justjavac/template_ast"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn comment_node(String, SourceSpan) -> TemplateNode
+
+pub fn escaped_expr_node(String, SourceSpan) -> TemplateNode
+
+pub fn include_node(String, SourceSpan) -> TemplateNode
+
+pub fn pos(offset~ : Int, line~ : Int, column~ : Int) -> SourcePos
+
+pub fn raw_expr_node(String, SourceSpan) -> TemplateNode
+
+pub fn span(file~ : String, start~ : SourcePos, end~ : SourcePos) -> SourceSpan
+
+pub fn statement_node(String, SourceSpan) -> TemplateNode
+
+pub fn template(path~ : String, nodes~ : Array[TemplateNode]) -> Template
+
+pub fn template_binding(source_path~ : String, template_path~ : String, struct_name~ : String, field_names? : Array[String], span~ : SourceSpan) -> TemplateBinding
+
+pub fn text_node(String, SourceSpan) -> TemplateNode
+
+// Errors
+
+// Types and methods
+pub(all) struct SourcePos {
+  offset : Int
+  line : Int
+  column : Int
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct SourceSpan {
+  file : String
+  start : SourcePos
+  end : SourcePos
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Template {
+  path : String
+  nodes : Array[TemplateNode]
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct TemplateBinding {
+  source_path : String
+  template_path : String
+  struct_name : String
+  field_names : Array[String]
+  span : SourceSpan
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum TemplateNode {
+  Text(text~ : String, span~ : SourceSpan)
+  EscapedExpr(expr~ : String, span~ : SourceSpan)
+  RawExpr(expr~ : String, span~ : SourceSpan)
+  Statement(code~ : String, span~ : SourceSpan)
+  Include(path~ : String, span~ : SourceSpan)
+  Comment(text~ : String, span~ : SourceSpan)
+} derive(Eq, ToJson, @debug.Debug)
+
+// Type aliases
+
+// Traits
+
