@@ -1,0 +1,7 @@
+members = [
+  "./template_ast",
+  "./template_parser",
+  "./template_codegen",
+  "./template",
+  "./examples",
+]
