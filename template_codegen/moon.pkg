@@ -1,0 +1,10 @@
+import {
+  "justjavac/template_ast" @ast,
+  "justjavac/template_parser" @parser,
+  "moonbitlang/core/env" @env,
+  "moonbitlang/x/fs" @fs,
+}
+
+options(
+  "is-main": true,
+)

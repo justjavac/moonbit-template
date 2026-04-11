@@ -1,0 +1,46 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "justjavac/template_codegen"
+
+import {
+  "justjavac/template_ast",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn generate(Array[TemplateInput]) -> String raise
+
+pub fn generate_from_files(Array[String], String) -> Unit raise
+
+pub fn generate_one(TemplateInput) -> String raise
+
+pub fn qualify_filters(String) -> String
+
+pub fn qualify_template_code(String, Array[String]) -> String
+
+pub fn run_cli(Array[String]) -> Unit raise
+
+pub fn scan_source(String, String) -> Array[@template_ast.TemplateBinding] raise CodegenError
+
+pub fn template_input(source_path~ : String, template_path~ : String, struct_name~ : String, field_names? : Array[String], content~ : String) -> TemplateInput
+
+// Errors
+pub(all) suberror CodegenError {
+  InvalidArguments(String)
+  InvalidBinding(source_path~ : String, offset~ : Int, message~ : String)
+  MissingTemplate(String)
+  UnexpandedInclude(path~ : String)
+} derive(Eq, @debug.Debug)
+
+// Types and methods
+pub(all) struct TemplateInput {
+  source_path : String
+  template_path : String
+  struct_name : String
+  field_names : Array[String]
+  content : String
+} derive(Eq, ToJson, @debug.Debug)
+
+// Type aliases
+
+// Traits
+
