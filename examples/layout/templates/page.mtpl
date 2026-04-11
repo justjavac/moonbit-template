@@ -1,0 +1,9 @@
+<!doctype html>
+<html>
+  <%~ "partials/head.mtpl" %>
+  <body>
+    <%~ "partials/header.mtpl" %>
+    <main><%- body %></main>
+    <%~ "partials/footer.mtpl" %>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "justjavac/template_examples/layout"
+
+import {
+  "justjavac/template",
+}
+
+// Values
+pub fn render_demo() -> String raise
+
+pub fn sample_page() -> LayoutPage
+
+// Errors
+
+// Types and methods
+pub(all) struct LayoutPage {
+  title : String
+  body : @template.SafeHtml
+}
+pub impl @template.Render for LayoutPage
+
+// Type aliases
+
+// Traits
+
