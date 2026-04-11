@@ -1,0 +1,5 @@
+<article class="filters">
+  <h1><%= title |> trim |> upper %></h1>
+  <p><%= summary |> default(fallback="Untitled") |> lower %></p>
+  <code><%= slug |> trim |> lower |> replace(old=" ", new="-") %></code>
+</article>

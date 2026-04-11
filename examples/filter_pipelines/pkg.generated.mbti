@@ -1,0 +1,26 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "justjavac/template_examples/filter_pipelines"
+
+import {
+  "justjavac/template",
+}
+
+// Values
+pub fn render_demo() -> String raise
+
+pub fn sample_page() -> FiltersPage
+
+// Errors
+
+// Types and methods
+pub(all) struct FiltersPage {
+  title : String
+  slug : String
+  summary : String
+}
+pub impl @template.Render for FiltersPage
+
+// Type aliases
+
+// Traits
+
