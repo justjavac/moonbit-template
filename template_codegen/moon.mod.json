@@ -7,7 +7,7 @@
     "moonbitlang/x": "0.4.43"
   },
   "readme": "README.md",
-  "repository": "",
+  "repository": "https://github.com/justjavac/moonbit-template",
   "license": "MIT",
   "keywords": [
     "template",

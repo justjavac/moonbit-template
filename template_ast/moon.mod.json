@@ -2,7 +2,7 @@
   "name": "justjavac/template_ast",
   "version": "0.1.0",
   "readme": "README.mbt.md",
-  "repository": "",
+  "repository": "https://github.com/justjavac/moonbit-template",
   "license": "MIT",
   "keywords": [
     "template",
