@@ -11,5 +11,5 @@
     "escaping",
     "filters"
   ],
-  "description": "Runtime helpers and filters for MoonBit precompiled templates."
+  "description": "A small and fast precompiled template engine for MoonBit."
 }
