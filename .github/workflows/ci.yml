@@ -31,8 +31,9 @@ jobs:
       - name: Install template codegen
         run: |
           mkdir -p "$HOME/.moon/bin"
-          cp _build/native/debug/build/justjavac/template_codegen/template_codegen "$HOME/.moon/bin/template_codegen"
-          chmod +x "$HOME/.moon/bin/template_codegen"
+          codegen_bin="$(find _build -type f \( -name template_codegen -o -name template_codegen.exe \) | head -n 1)"
+          test -n "$codegen_bin"
+          install -m 755 "$codegen_bin" "$HOME/.moon/bin/template_codegen"
 
       - name: Check
         run: moon check
