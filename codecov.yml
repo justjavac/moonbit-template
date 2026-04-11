@@ -1,0 +1,18 @@
+component_management:
+  individual_components:
+    - component_id: template
+      name: template
+      paths:
+        - template/**
+    - component_id: template_ast
+      name: template_ast
+      paths:
+        - template_ast/**
+    - component_id: template_parser
+      name: template_parser
+      paths:
+        - template_parser/**
+    - component_id: template_codegen
+      name: template_codegen
+      paths:
+        - template_codegen/**
