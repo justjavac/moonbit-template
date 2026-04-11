@@ -1,0 +1,14 @@
+import {
+  "justjavac/template",
+}
+
+options(
+  "is-main": true,
+  "pre-build": [
+    {
+      "command": "template_codegen --scan $input -o $output",
+      "input": [ "main.mbt", "templates/list.mtpl" ],
+      "output": "tpl.generated.mbt",
+    },
+  ],
+)

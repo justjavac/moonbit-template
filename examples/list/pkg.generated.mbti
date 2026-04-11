@@ -1,0 +1,36 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "justjavac/template_examples/list"
+
+import {
+  "justjavac/template",
+}
+
+// Values
+pub fn empty_page() -> TodoListPage
+
+pub fn render_demo() -> String raise
+
+pub fn sample_page() -> TodoListPage
+
+// Errors
+
+// Types and methods
+pub(all) struct TodoItem {
+  title : String
+  done : Bool
+}
+
+pub(all) struct TodoList {
+  title : String
+  items : Array[TodoItem]
+}
+
+pub(all) struct TodoListPage {
+  list : TodoList
+}
+pub impl @template.Render for TodoListPage
+
+// Type aliases
+
+// Traits
+

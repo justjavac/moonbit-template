@@ -1,0 +1,17 @@
+<section class="todo-list">
+  <h1><%= list.title |> trim %></h1>
+
+  <% if list.items.length() == 0 { %>
+    <p>No items yet.</p>
+  <% } else { %>
+    <ul>
+    <% for item in list.items { %>
+      <% if item.done { %>
+        <li class="done"><%= item.title %></li>
+      <% } else { %>
+        <li><%= item.title %></li>
+      <% } %>
+    <% } %>
+    </ul>
+  <% } %>
+</section>

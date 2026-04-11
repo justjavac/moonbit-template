@@ -1,0 +1,12 @@
+<article class="profile-card">
+  <h1><%= user.name |> trim |> upper %></h1>
+
+  <% if user.is_admin() { %>
+    <span>Admin</span>
+  <% } else { %>
+    <span>Member</span>
+  <% } %>
+
+  <%- bio %>
+  <%~ "partials/footer.mtpl" %>
+</article>

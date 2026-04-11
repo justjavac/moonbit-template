@@ -1,0 +1,29 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "justjavac/template_examples/hello"
+
+import {
+  "justjavac/template",
+}
+
+// Values
+pub fn render_demo() -> String raise
+
+// Errors
+
+// Types and methods
+pub(all) struct ProfileCard {
+  user : User
+  bio : @template.SafeHtml
+}
+pub impl @template.Render for ProfileCard
+
+pub(all) struct User {
+  name : String
+  admin : Bool
+}
+pub fn User::is_admin(Self) -> Bool
+
+// Type aliases
+
+// Traits
+
