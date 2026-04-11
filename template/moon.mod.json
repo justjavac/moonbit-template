@@ -6,7 +6,10 @@
   "license": "MIT",
   "keywords": [
     "template",
-    "html"
+    "html",
+    "rendering",
+    "escaping",
+    "filters"
   ],
   "description": "Runtime helpers and filters for MoonBit precompiled templates."
 }

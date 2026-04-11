@@ -11,7 +11,10 @@
   "license": "MIT",
   "keywords": [
     "template",
-    "codegen"
+    "codegen",
+    "generator",
+    "precompile",
+    "cli"
   ],
   "description": "Code generator for precompiled MoonBit templates."
 }

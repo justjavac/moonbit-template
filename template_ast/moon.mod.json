@@ -4,6 +4,12 @@
   "readme": "README.mbt.md",
   "repository": "",
   "license": "MIT",
-  "keywords": ["template", "ast"],
+  "keywords": [
+    "template",
+    "ast",
+    "syntax-tree",
+    "source-span",
+    "diagnostics"
+  ],
   "description": "Shared AST and source-location model for MoonBit templates."
 }

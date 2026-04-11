@@ -9,7 +9,10 @@
   "license": "MIT",
   "keywords": [
     "template",
-    "parser"
+    "parser",
+    "html",
+    "sailfish",
+    "ejs"
   ],
   "description": "Parser for Sailfish-style MoonBit template tags."
 }

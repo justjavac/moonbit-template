@@ -9,7 +9,10 @@
   "license": "MIT",
   "keywords": [
     "template",
-    "examples"
+    "examples",
+    "html",
+    "demo",
+    "precompiled"
   ],
   "description": "Runnable examples for justjavac/template."
 }
