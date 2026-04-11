@@ -1,0 +1,15 @@
+{
+  "name": "justjavac/template_examples",
+  "version": "0.1.0",
+  "deps": {
+    "justjavac/template": "0.1.0"
+  },
+  "readme": "README.mbt.md",
+  "repository": "",
+  "license": "MIT",
+  "keywords": [
+    "template",
+    "examples"
+  ],
+  "description": "Runnable examples for justjavac/template."
+}
