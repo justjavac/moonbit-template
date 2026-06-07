@@ -82,19 +82,14 @@ test "generate render implementation" {
 test "scan source binding errors" {
   let unquoted = try? scan_source("bad.mbt", "#tpl.path(nope)")
   guard unquoted
-    is Err(
-      CodegenError::InvalidBinding(message="expected quoted template path", ..)
-    ) else {
+    is Err(InvalidBinding(message="expected quoted template path", ..)) else {
     fail("expected quoted path error")
   }
 
   let missing_close = try? scan_source("bad.mbt", "#tpl.path(\"x\"")
   guard missing_close
     is Err(
-      CodegenError::InvalidBinding(
-        message="expected closing ')' after template path",
-        ..
-      )
+      InvalidBinding(message="expected closing ')' after template path", ..)
     ) else {
     fail("expected closing paren error")
   }
@@ -103,34 +98,19 @@ test "scan source binding errors" {
     "bad.mbt", "#tpl.path(\"x\")\nlet x = 1",
   )
   guard missing_struct
-    is Err(
-      CodegenError::InvalidBinding(
-        message="expected struct after #tpl.path",
-        ..
-      )
-    ) else {
+    is Err(InvalidBinding(message="expected struct after #tpl.path", ..)) else {
     fail("expected missing struct error")
   }
 
   let no_name = try? scan_source("bad.mbt", "#tpl.path(\"x\")\nstruct")
   guard no_name
-    is Err(
-      CodegenError::InvalidBinding(
-        message="expected struct after #tpl.path",
-        ..
-      )
-    ) else {
+    is Err(InvalidBinding(message="expected struct after #tpl.path", ..)) else {
     fail("expected missing struct name error")
   }
 
   let bad_name = try? scan_source("bad.mbt", "#tpl.path(\"x\")\nstruct 123")
   guard bad_name
-    is Err(
-      CodegenError::InvalidBinding(
-        message="expected struct after #tpl.path",
-        ..
-      )
-    ) else {
+    is Err(InvalidBinding(message="expected struct after #tpl.path", ..)) else {
     fail("expected bad struct name error")
   }
 
@@ -160,7 +140,7 @@ test "generate escapes text literals and rejects unexpanded include" {
     content="<%~ \"footer.mtpl\" %>",
   )
   let result = try? generate_one(with_include)
-  guard result is Err(CodegenError::UnexpandedInclude(path="footer.mtpl")) else {
+  guard result is Err(UnexpandedInclude(path="footer.mtpl")) else {
     fail("expected unexpanded include error")
   }
 }
@@ -195,14 +175,12 @@ test "generate from files expands includes" {
 ///|
 test "run cli reports argument errors" {
   let missing_value = try? run_cli(["template_codegen", "-o"])
-  guard missing_value
-    is Err(CodegenError::InvalidArguments("expected output path after -o")) else {
+  guard missing_value is Err(InvalidArguments("expected output path after -o")) else {
     fail("expected missing output value error")
   }
 
   let missing_output = try? run_cli(["template_codegen", "--scan"])
-  guard missing_output
-    is Err(CodegenError::InvalidArguments("missing -o <output>")) else {
+  guard missing_output is Err(InvalidArguments("missing -o <output>")) else {
     fail("expected missing output error")
   }
 }
@@ -221,7 +199,7 @@ test "generate from files reports missing template" {
     [source_path],
     dir + "/tpl.generated.mbt",
   )
-  guard result is Err(CodegenError::MissingTemplate(_)) else {
+  guard result is Err(MissingTemplate(_)) else {
     fail("expected MissingTemplate")
   }
 }

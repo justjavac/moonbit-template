@@ -40,13 +40,7 @@ pub fn template_input(
   field_names? : Array[String] = [],
   content~ : String,
 ) -> TemplateInput {
-  TemplateInput::{
-    source_path,
-    template_path,
-    struct_name,
-    field_names,
-    content,
-  }
+  { source_path, template_path, struct_name, field_names, content }
 }
 
 ///|
@@ -73,7 +67,7 @@ pub fn scan_source(
         let path_start = attr_start + marker.length()
         match read_quoted_string(source, path_start) {
           None =>
-            raise CodegenError::InvalidBinding(
+            raise InvalidBinding(
               source_path~,
               offset=attr_start,
               message="expected quoted template path",
@@ -83,7 +77,7 @@ pub fn scan_source(
             if after_attr >= len ||
               source.unsafe_substring(start=after_attr, end=after_attr + 1) !=
               ")" {
-              raise CodegenError::InvalidBinding(
+              raise InvalidBinding(
                 source_path~,
                 offset=after_attr,
                 message="expected closing ')' after template path",
@@ -92,7 +86,7 @@ pub fn scan_source(
             let search_start = after_attr + 1
             match find_struct_name(source, search_start) {
               None =>
-                raise CodegenError::InvalidBinding(
+                raise InvalidBinding(
                   source_path~,
                   offset=search_start,
                   message="expected struct after #tpl.path",
@@ -188,7 +182,7 @@ pub fn generate_from_files(
         binding.template_path,
       )
       if !@fs.path_exists(template_path) {
-        raise CodegenError::MissingTemplate(template_path)
+        raise MissingTemplate(template_path)
       }
       let content = read_template_with_includes(template_path)
       inputs.push(
@@ -237,7 +231,7 @@ fn parse_args(args : Array[String]) -> CliOptions raise CodegenError {
       scanning = true
     } else if arg == "-o" || arg == "--output" {
       if index + 1 >= len {
-        raise CodegenError::InvalidArguments("expected output path after -o")
+        raise InvalidArguments("expected output path after -o")
       }
       output_path = args[index + 1]
       scanning = false
@@ -248,9 +242,9 @@ fn parse_args(args : Array[String]) -> CliOptions raise CodegenError {
     index = index + 1
   }
   if output_path.is_empty() {
-    raise CodegenError::InvalidArguments("missing -o <output>")
+    raise InvalidArguments("missing -o <output>")
   }
-  CliOptions::{ scan_files, output_path }
+  { scan_files, output_path }
 }
 
 ///|
@@ -283,7 +277,7 @@ fn write_nodes(
           out.write_string(qualify_template_code(code, field_names))
           out.write_string("\n")
         }
-      Include(path~, ..) => raise CodegenError::UnexpandedInclude(path~)
+      Include(path~, ..) => raise UnexpandedInclude(path~)
       Comment(_) => ()
     }
   }

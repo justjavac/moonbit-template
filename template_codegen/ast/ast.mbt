@@ -12,7 +12,7 @@ pub(all) struct SourcePos {
 ///|
 /// Creates a source position for diagnostics and source spans.
 pub fn pos(offset~ : Int, line~ : Int, column~ : Int) -> SourcePos {
-  SourcePos::{ offset, line, column }
+  { offset, line, column }
 }
 
 ///|
@@ -30,7 +30,7 @@ pub(all) struct SourceSpan {
 ///|
 /// Creates a half-open source span for a single file.
 pub fn span(file~ : String, start~ : SourcePos, end~ : SourcePos) -> SourceSpan {
-  SourceSpan::{ file, start, end }
+  { file, start, end }
 }
 
 ///|
@@ -113,7 +113,7 @@ pub(all) struct Template {
 ///|
 /// Creates a parsed template document from a path and node sequence.
 pub fn template(path~ : String, nodes~ : Array[TemplateNode]) -> Template {
-  Template::{ path, nodes }
+  { path, nodes }
 }
 
 ///|
@@ -142,11 +142,5 @@ pub fn template_binding(
   field_names? : Array[String] = [],
   span~ : SourceSpan,
 ) -> TemplateBinding {
-  TemplateBinding::{
-    source_path,
-    template_path,
-    struct_name,
-    field_names,
-    span,
-  }
+  { source_path, template_path, struct_name, field_names, span }
 }

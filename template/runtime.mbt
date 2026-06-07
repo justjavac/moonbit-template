@@ -6,7 +6,7 @@
 /// can call ordinary MoonBit functions that use checked errors. User-defined
 /// page structs normally receive their implementation from `template_codegen`.
 pub(open) trait Render {
-  render(Self) -> String raise
+  fn render(Self) -> String raise
 }
 
 ///|
@@ -36,7 +36,7 @@ pub struct SafeHtml {
 /// Prefer constructing this value near the code that validates or produces the
 /// markup, so the trust decision remains visible at the call site.
 pub fn SafeHtml::new(value : String) -> SafeHtml {
-  SafeHtml::{ value, }
+  { value, }
 }
 
 ///|
@@ -59,7 +59,7 @@ pub fn safe_html(value : String) -> SafeHtml {
 
 ///|
 /// Writes trusted HTML as-is when interpolated or rendered as a raw value.
-pub impl Show for SafeHtml with output(self, logger) {
+pub impl Show for SafeHtml with fn output(self, logger) {
   logger.write_string(self.value)
 }
 

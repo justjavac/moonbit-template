@@ -33,7 +33,7 @@ pub fn parse(path : String, source : String) -> @ast.Template raise ParseError {
         let body_start = open + 2
         let after_open = source.unsafe_substring(start=body_start, end=len)
         match after_open.find("%>") {
-          None => raise ParseError::UnclosedTag(path~, offset=open)
+          None => raise UnclosedTag(path~, offset=open)
           Some(relative_close) => {
             let close = body_start + relative_close
             let body = source.unsafe_substring(start=body_start, end=close)
@@ -77,36 +77,31 @@ fn parse_tag(
     let expr = body
       .unsafe_substring(start=1, end=body.length())
       .trim()
-      .to_string()
+      .to_owned()
     @ast.escaped_expr_node(expr, span)
   } else if body.has_prefix("-") {
     let expr = body
       .unsafe_substring(start=1, end=body.length())
       .trim()
-      .to_string()
+      .to_owned()
     @ast.raw_expr_node(expr, span)
   } else if body.has_prefix("#") {
     let text = body
       .unsafe_substring(start=1, end=body.length())
       .trim()
-      .to_string()
+      .to_owned()
     @ast.comment_node(text, span)
   } else if body.has_prefix("~") {
     let include_content = body
       .unsafe_substring(start=1, end=body.length())
       .trim()
-      .to_string()
+      .to_owned()
     match parse_include_path(include_content) {
       Some(include_path) => @ast.include_node(include_path, span)
-      None =>
-        raise ParseError::InvalidInclude(
-          path~,
-          offset=start,
-          content=include_content,
-        )
+      None => raise InvalidInclude(path~, offset=start, content=include_content)
     }
   } else {
-    @ast.statement_node(body.trim().to_string(), span)
+    @ast.statement_node(body.trim().to_owned(), span)
   }
 }
 

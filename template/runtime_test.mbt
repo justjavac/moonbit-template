@@ -6,7 +6,7 @@ struct TinyPage {
 
 ///|
 /// Renders `TinyPage` as a small HTML fragment for runtime tests.
-impl @template.Render for TinyPage with render(self) {
+impl @template.Render for TinyPage with fn render(self) {
   "<h1>\{self.title}</h1>"
 }
 
@@ -42,10 +42,5 @@ test "write helpers append raw and escaped text" {
 ///|
 test "render trait propagates checked style" {
   let page = TinyPage::{ title: "Hello" }
-  inspect(
-    try? page.render(),
-    content=(
-      #|Ok("<h1>Hello</h1>")
-    ),
-  )
+  inspect(try! page.render(), content="<h1>Hello</h1>")
 }

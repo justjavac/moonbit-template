@@ -4,7 +4,7 @@
 /// This filter is intended for pipeline use in templates and mirrors
 /// `String::trim`.
 pub fn trim(value : String) -> String {
-  value.trim().to_string()
+  value.trim().to_owned()
 }
 
 ///|
@@ -13,7 +13,7 @@ pub fn trim(value : String) -> String {
 /// This filter is intended for pipeline use in templates and mirrors
 /// `String::trim_start`.
 pub fn trim_start(value : String) -> String {
-  value.trim_start().to_string()
+  value.trim_start().to_owned()
 }
 
 ///|
@@ -22,7 +22,7 @@ pub fn trim_start(value : String) -> String {
 /// This filter is intended for pipeline use in templates and mirrors
 /// `String::trim_end`.
 pub fn trim_end(value : String) -> String {
-  value.trim_end().to_string()
+  value.trim_end().to_owned()
 }
 
 ///|

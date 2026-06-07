@@ -48,6 +48,6 @@ pub impl Show for SafeHtml
 
 // Traits
 pub(open) trait Render {
-  render(Self) -> String raise
+  fn render(Self) -> String raise
 }
 

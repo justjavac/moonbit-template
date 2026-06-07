@@ -15,11 +15,7 @@ pub(all) struct FiltersPage {
 ///
 /// Empty `summary` demonstrates the `default` filter in the template.
 pub fn sample_page() -> FiltersPage {
-  FiltersPage::{
-    title: " moonbit templates ",
-    slug: "MoonBit Templates",
-    summary: "",
-  }
+  { title: " moonbit templates ", slug: "MoonBit Templates", summary: "" }
 }
 
 ///|

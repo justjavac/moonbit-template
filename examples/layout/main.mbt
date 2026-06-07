@@ -15,7 +15,7 @@ pub(all) struct LayoutPage {
 /// `body` is trusted HTML so the template can demonstrate raw output inside a
 /// shared layout.
 pub fn sample_page() -> LayoutPage {
-  LayoutPage::{
+  {
     title: "About <Templates>",
     body: @template.safe_html("<p>Generated pages keep layout code shared.</p>"),
   }

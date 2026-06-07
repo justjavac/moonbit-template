@@ -33,12 +33,12 @@ pub(all) struct TodoListPage {
 ///
 /// The values are intentionally stable so tests can assert the rendered output.
 pub fn sample_page() -> TodoListPage {
-  TodoListPage::{
-    list: TodoList::{
+  {
+    list: {
       title: " Release checklist ",
       items: [
-        TodoItem::{ title: "write docs", done: true },
-        TodoItem::{ title: "ship examples", done: false },
+        { title: "write docs", done: true },
+        { title: "ship examples", done: false },
       ],
     },
   }
@@ -50,7 +50,7 @@ pub fn sample_page() -> TodoListPage {
 /// This keeps the empty-state scenario easy to exercise without duplicating
 /// setup code in each test.
 pub fn empty_page() -> TodoListPage {
-  TodoListPage::{ list: TodoList::{ title: "Empty", items: [] } }
+  { list: { title: "Empty", items: [] } }
 }
 
 ///|

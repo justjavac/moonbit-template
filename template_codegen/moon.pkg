@@ -1,8 +1,8 @@
 import {
-  "justjavac/template_codegen/ast" @ast,
-  "justjavac/template_codegen/parser" @parser,
-  "moonbitlang/core/env" @env,
-  "moonbitlang/x/fs" @fs,
+  "justjavac/template_codegen/ast",
+  "justjavac/template_codegen/parser",
+  "moonbitlang/core/env",
+  "moonbitlang/x/fs",
 }
 
 options(
