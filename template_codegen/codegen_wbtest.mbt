@@ -1,4 +1,13 @@
 ///|
+fn[T, E : Error] try_result_codegen_wbtest(f : () -> T raise E) -> Result[T, E] {
+  try f() catch {
+    e => Err(e)
+  } noraise {
+    value => Ok(value)
+  }
+}
+
+///|
 test "scan source bindings" {
   let source =
     #|#tpl.path("templates/profile_card.mtpl")
@@ -80,13 +89,17 @@ test "generate render implementation" {
 
 ///|
 test "scan source binding errors" {
-  let unquoted = try? scan_source("bad.mbt", "#tpl.path(nope)")
+  let unquoted = try_result_codegen_wbtest(() => {
+    scan_source("bad.mbt", "#tpl.path(nope)")
+  })
   guard unquoted
     is Err(InvalidBinding(message="expected quoted template path", ..)) else {
     fail("expected quoted path error")
   }
 
-  let missing_close = try? scan_source("bad.mbt", "#tpl.path(\"x\"")
+  let missing_close = try_result_codegen_wbtest(() => {
+    scan_source("bad.mbt", "#tpl.path(\"x\"")
+  })
   guard missing_close
     is Err(
       InvalidBinding(message="expected closing ')' after template path", ..)
@@ -94,21 +107,25 @@ test "scan source binding errors" {
     fail("expected closing paren error")
   }
 
-  let missing_struct = try? scan_source(
-    "bad.mbt", "#tpl.path(\"x\")\nlet x = 1",
-  )
+  let missing_struct = try_result_codegen_wbtest(() => {
+    scan_source("bad.mbt", "#tpl.path(\"x\")\nlet x = 1")
+  })
   guard missing_struct
     is Err(InvalidBinding(message="expected struct after #tpl.path", ..)) else {
     fail("expected missing struct error")
   }
 
-  let no_name = try? scan_source("bad.mbt", "#tpl.path(\"x\")\nstruct")
+  let no_name = try_result_codegen_wbtest(() => {
+    scan_source("bad.mbt", "#tpl.path(\"x\")\nstruct")
+  })
   guard no_name
     is Err(InvalidBinding(message="expected struct after #tpl.path", ..)) else {
     fail("expected missing struct name error")
   }
 
-  let bad_name = try? scan_source("bad.mbt", "#tpl.path(\"x\")\nstruct 123")
+  let bad_name = try_result_codegen_wbtest(() => {
+    scan_source("bad.mbt", "#tpl.path(\"x\")\nstruct 123")
+  })
   guard bad_name
     is Err(InvalidBinding(message="expected struct after #tpl.path", ..)) else {
     fail("expected bad struct name error")
@@ -139,7 +156,7 @@ test "generate escapes text literals and rejects unexpanded include" {
     struct_name="IncludePage",
     content="<%~ \"footer.mtpl\" %>",
   )
-  let result = try? generate_one(with_include)
+  let result = try_result_codegen_wbtest(() => generate_one(with_include))
   guard result is Err(UnexpandedInclude(path="footer.mtpl")) else {
     fail("expected unexpanded include error")
   }
@@ -174,12 +191,16 @@ test "generate from files expands includes" {
 
 ///|
 test "run cli reports argument errors" {
-  let missing_value = try? run_cli(["template_codegen", "-o"])
+  let missing_value = try_result_codegen_wbtest(() => {
+    run_cli(["template_codegen", "-o"])
+  })
   guard missing_value is Err(InvalidArguments("expected output path after -o")) else {
     fail("expected missing output value error")
   }
 
-  let missing_output = try? run_cli(["template_codegen", "--scan"])
+  let missing_output = try_result_codegen_wbtest(() => {
+    run_cli(["template_codegen", "--scan"])
+  })
   guard missing_output is Err(InvalidArguments("missing -o <output>")) else {
     fail("expected missing output error")
   }
@@ -195,10 +216,9 @@ test "generate from files reports missing template" {
   @fs.write_string_to_file(
     source_path, "#tpl.path(\"missing.mtpl\")\npub(all) struct MissingPage {}\n",
   )
-  let result = try? generate_from_files(
-    [source_path],
-    dir + "/tpl.generated.mbt",
-  )
+  let result = try_result_codegen_wbtest(() => {
+    generate_from_files([source_path], dir + "/tpl.generated.mbt")
+  })
   guard result is Err(MissingTemplate(_)) else {
     fail("expected MissingTemplate")
   }

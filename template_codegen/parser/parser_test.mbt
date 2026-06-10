@@ -1,4 +1,15 @@
 ///|
+fn[T, E : Error] try_result_parser_parser_test(
+  f : () -> T raise E,
+) -> Result[T, E] {
+  try f() catch {
+    e => Err(e)
+  } noraise {
+    value => Ok(value)
+  }
+}
+
+///|
 test "parse template tags" {
   let source = "<h1><%= title |> trim %></h1><%# hidden %><%- body %>"
   let template = try! @parser.parse("page.mtpl", source)
@@ -86,7 +97,9 @@ test "parse include and statements" {
 
 ///|
 test "invalid include reports an error" {
-  let result = try? @parser.parse("bad.mtpl", "<%~ footer %>")
+  let result = try_result_parser_parser_test(() => {
+    @parser.parse("bad.mtpl", "<%~ footer %>")
+  })
   guard result
     is Err(InvalidInclude(path="bad.mtpl", offset=0, content="footer")) else {
     fail("expected InvalidInclude")
@@ -95,7 +108,9 @@ test "invalid include reports an error" {
 
 ///|
 test "unclosed tag reports an error" {
-  let result = try? @parser.parse("bad.mtpl", "hello <% if true {")
+  let result = try_result_parser_parser_test(() => {
+    @parser.parse("bad.mtpl", "hello <% if true {")
+  })
   guard result is Err(UnclosedTag(path="bad.mtpl", offset=6)) else {
     fail("expected UnclosedTag")
   }
