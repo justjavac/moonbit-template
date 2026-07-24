@@ -3,7 +3,7 @@ name = "justjavac/template_codegen"
 version = "0.1.3"
 
 import {
-  "moonbitlang/x@0.4.46",
+  "moonbitlang/x@0.4.47",
 }
 
 readme = "README.md"

@@ -2,8 +2,9 @@ import {
   "justjavac/template",
 }
 
+pkgtype(kind: "executable")
+
 options(
-  "is-main": true,
   "pre-build": [
     {
       "command": "template_codegen --scan $input -o $output",
