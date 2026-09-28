@@ -7,7 +7,7 @@ pkgtype(kind: "executable")
 options(
   "pre-build": [
     {
-      "command": "template_codegen --scan $input -o $output",
+      "command": "moonx justjavac/template_codegen@0.1.4 --scan $input -o $output",
       "input": [
         "main.mbt",
         "templates/page.mtpl",

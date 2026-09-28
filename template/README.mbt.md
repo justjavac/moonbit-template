@@ -27,7 +27,7 @@ Write the template:
 Generate the renderer:
 
 ```bash
-moon install justjavac/template_codegen
+moonx justjavac/template_codegen --scan main.mbt templates/profile_card.mtpl -o tpl.generated.mbt
 ```
 
 For normal package builds, wire the same command into `pre-build`:
@@ -42,7 +42,7 @@ options(
         "templates/partials/footer.mtpl",
       ],
       "output": "tpl.generated.mbt",
-      "command": "template_codegen --scan $input -o $output",
+      "command": "moonx justjavac/template_codegen@0.1.4 --scan $input -o $output",
     },
   ],
 )
