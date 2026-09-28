@@ -10,6 +10,8 @@ pub(all) struct FiltersPage {
   summary : String
 }
 
+pub extend FiltersPage with @template.Render::{render}
+
 ///|
 /// Builds the sample page used by the filter-pipeline example.
 ///

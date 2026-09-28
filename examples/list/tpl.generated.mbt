@@ -3,7 +3,7 @@
 ///|
 /// Generated render implementation for templates/list.mtpl.
 pub impl @template.Render for TodoListPage with render(self) {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   out.write_string("<section class=\"todo-list\">\n  <h1>")
   out.write_string(@template.escape_html(@template.render_value(self.list.title |> @template.trim)))
   out.write_string("</h1>\n\n  ")

@@ -32,7 +32,7 @@ test "render value uses interpolation semantics" {
 
 ///|
 test "write helpers append raw and escaped text" {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   @template.write_raw(out, "<p>")
   @template.write_escaped(out, "Ada & Bob")
   @template.write_raw(out, "</p>")

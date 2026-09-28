@@ -9,6 +9,8 @@ pub(all) struct LayoutPage {
   body : @template.SafeHtml
 }
 
+pub extend LayoutPage with @template.Render::{render}
+
 ///|
 /// Builds the sample page used by the layout example and its tests.
 ///

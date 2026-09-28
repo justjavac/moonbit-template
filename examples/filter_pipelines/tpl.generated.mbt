@@ -3,7 +3,7 @@
 ///|
 /// Generated render implementation for templates/filters.mtpl.
 pub impl @template.Render for FiltersPage with render(self) {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   out.write_string("<article class=\"filters\">\n  <h1>")
   out.write_string(@template.escape_html(@template.render_value(self.title |> @template.trim |> @template.upper)))
   out.write_string("</h1>\n  <p>")

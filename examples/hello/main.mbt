@@ -27,6 +27,8 @@ pub(all) struct ProfileCard {
   bio : @template.SafeHtml
 }
 
+pub extend ProfileCard with @template.Render::{render}
+
 ///|
 /// Renders the profile-card example with stable sample data.
 ///

@@ -28,6 +28,8 @@ pub(all) struct TodoListPage {
   list : TodoList
 }
 
+pub extend TodoListPage with @template.Render::{render}
+
 ///|
 /// Builds the populated todo-list page used by the runnable example.
 ///

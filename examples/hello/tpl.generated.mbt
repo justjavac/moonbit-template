@@ -3,7 +3,7 @@
 ///|
 /// Generated render implementation for templates/profile_card.mtpl.
 pub impl @template.Render for ProfileCard with render(self) {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   out.write_string("<article class=\"profile-card\">\n  <h1>")
   out.write_string(@template.escape_html(@template.render_value(self.user.name |> @template.trim |> @template.upper)))
   out.write_string("</h1>\n\n  ")

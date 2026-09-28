@@ -20,6 +20,10 @@ pub(all) suberror RenderError {
   InvalidInclude(String)
 } derive(Eq, Debug)
 
+pub extend RenderError with Eq::{equal, not_equal}
+
+pub extend RenderError with @debug.Debug::{to_repr}
+
 ///|
 /// HTML that has already been validated by the caller.
 ///
@@ -63,6 +67,8 @@ pub impl Show for SafeHtml with fn output(self, logger) {
   logger.write_string(self.value)
 }
 
+pub extend SafeHtml with Show::{output}
+
 ///|
 /// Formats a value the same way MoonBit string interpolation does.
 ///
@@ -80,7 +86,7 @@ pub fn[T : Show] render_value(value : T) -> String {
 /// by templates. Raw output must be requested explicitly through template syntax
 /// or by rendering trusted `SafeHtml`.
 pub fn escape_html(value : String) -> String {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   for ch in value {
     match ch {
       '&' => out.write_string("&amp;")
