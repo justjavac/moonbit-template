@@ -9,6 +9,12 @@ pub(all) struct SourcePos {
   column : Int
 } derive(Eq, ToJson, Debug)
 
+pub extend SourcePos with Eq::{equal, not_equal}
+
+pub extend SourcePos with ToJson::{to_json}
+
+pub extend SourcePos with @debug.Debug::{to_repr}
+
 ///|
 /// Creates a source position for diagnostics and source spans.
 pub fn pos(offset~ : Int, line~ : Int, column~ : Int) -> SourcePos {
@@ -26,6 +32,12 @@ pub(all) struct SourceSpan {
   start : SourcePos
   end : SourcePos
 } derive(Eq, ToJson, Debug)
+
+pub extend SourceSpan with Eq::{equal, not_equal}
+
+pub extend SourceSpan with ToJson::{to_json}
+
+pub extend SourceSpan with @debug.Debug::{to_repr}
 
 ///|
 /// Creates a half-open source span for a single file.
@@ -48,6 +60,12 @@ pub(all) enum TemplateNode {
   Include(path~ : String, span~ : SourceSpan)
   Comment(text~ : String, span~ : SourceSpan)
 } derive(Eq, ToJson, Debug)
+
+pub extend TemplateNode with Eq::{equal, not_equal}
+
+pub extend TemplateNode with ToJson::{to_json}
+
+pub extend TemplateNode with @debug.Debug::{to_repr}
 
 ///|
 /// Creates a plain text node.
@@ -110,6 +128,12 @@ pub(all) struct Template {
   nodes : Array[TemplateNode]
 } derive(Eq, ToJson, Debug)
 
+pub extend Template with Eq::{equal, not_equal}
+
+pub extend Template with ToJson::{to_json}
+
+pub extend Template with @debug.Debug::{to_repr}
+
 ///|
 /// Creates a parsed template document from a path and node sequence.
 pub fn template(path~ : String, nodes~ : Array[TemplateNode]) -> Template {
@@ -129,6 +153,12 @@ pub(all) struct TemplateBinding {
   field_names : Array[String]
   span : SourceSpan
 } derive(Eq, ToJson, Debug)
+
+pub extend TemplateBinding with Eq::{equal, not_equal}
+
+pub extend TemplateBinding with ToJson::{to_json}
+
+pub extend TemplateBinding with @debug.Debug::{to_repr}
 
 ///|
 /// Creates a template binding discovered in MoonBit source.

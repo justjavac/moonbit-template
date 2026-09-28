@@ -72,7 +72,7 @@ test "generate render implementation" {
       #|///|
       #|/// Generated render implementation for templates/profile_card.mtpl.
       #|pub impl @template.Render for ProfileCard with render(self) {
-      #|  let out = StringBuilder::new()
+      #|  let out = StringBuilder()
       #|  out.write_string("<article>\n")
       #|  let visible = true
       #|  out.write_string("<h1>")

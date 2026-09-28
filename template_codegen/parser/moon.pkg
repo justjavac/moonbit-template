@@ -1,3 +1,4 @@
 import {
   "justjavac/template_codegen/ast",
+  "moonbitlang/core/debug",
 }

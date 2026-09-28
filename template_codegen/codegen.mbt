@@ -12,6 +12,10 @@ pub(all) suberror CodegenError {
   UnexpandedInclude(path~ : String)
 } derive(Eq, Debug)
 
+pub extend CodegenError with Eq::{equal, not_equal}
+
+pub extend CodegenError with @debug.Debug::{to_repr}
+
 ///|
 /// A source binding plus its loaded template content.
 ///
@@ -126,7 +130,7 @@ pub fn scan_source(
 /// imports are not emitted; callers should import `justjavac/template` in the
 /// target package's `moon.pkg`.
 pub fn generate(inputs : Array[TemplateInput]) -> String raise {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   out.write_string("// Generated using `template_codegen`, DON'T EDIT IT\n")
   for input in inputs {
     out.write_string("\n")
@@ -143,7 +147,7 @@ pub fn generate(inputs : Array[TemplateInput]) -> String raise {
 /// raises `CodegenError::UnexpandedInclude`.
 pub fn generate_one(input : TemplateInput) -> String raise {
   let template = @parser.parse(input.template_path, input.content)
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   out.write_string("///|\n")
   out.write_string("/// Generated render implementation for ")
   out.write_string(input.template_path)
@@ -151,7 +155,7 @@ pub fn generate_one(input : TemplateInput) -> String raise {
   out.write_string("pub impl @template.Render for ")
   out.write_string(input.struct_name)
   out.write_string(" with render(self) {\n")
-  out.write_string("  let out = StringBuilder::new()\n")
+  out.write_string("  let out = StringBuilder()\n")
   write_nodes(out, template.nodes, input.field_names)
   out.write_string("  out.to_string()\n")
   out.write_string("}\n")
@@ -296,7 +300,7 @@ fn write_text_statement(out : StringBuilder, text : String) -> Unit {
 ///|
 /// Returns a MoonBit string literal for generated source.
 fn moon_string_literal(value : String) -> String {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   out.write_char('"')
   for ch in value {
     match ch {
@@ -333,7 +337,7 @@ pub fn qualify_template_code(
 /// Bare identifiers after `|>` are treated as runtime filters so generated
 /// packages only need an explicit dependency on `justjavac/template`.
 pub fn qualify_filters(expr : String) -> String {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   let len = expr.length()
   for offset = 0; offset < len; {
     let rest = expr.unsafe_substring(start=offset, end=len)
@@ -377,7 +381,7 @@ fn prefix_self_fields(code : String, field_names : Array[String]) -> String {
   if field_names.is_empty() {
     return code
   }
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   let len = code.length()
   for offset = 0; offset < len; {
     match code.get_char(offset) {
@@ -660,7 +664,7 @@ fn resolve_template_path(
 fn read_template_with_includes(template_path : String) -> String raise {
   let source = @fs.read_file_to_string(template_path)
   let template = @parser.parse(template_path, source)
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   let base = dirname_path(template_path)
   for node in template.nodes {
     match node {

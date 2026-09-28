@@ -10,6 +10,10 @@ pub(all) suberror ParseError {
   InvalidInclude(path~ : String, offset~ : Int, content~ : String)
 } derive(Eq, Debug)
 
+pub extend ParseError with Eq::{equal, not_equal}
+
+pub extend ParseError with @debug.Debug::{to_repr}
+
 ///|
 /// Parses Sailfish/EJS-style template tags into a template AST.
 ///
