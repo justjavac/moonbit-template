@@ -1,6 +1,6 @@
 name = "justjavac/template_codegen"
 
-version = "0.1.4"
+version = "0.1.5"
 
 import {
   "moonbitlang/x@0.4.47",
