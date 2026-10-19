@@ -18,9 +18,9 @@ pub(all) struct FiltersPage {
   slug : String
   summary : String
 }
+pub fn FiltersPage::render(Self) -> String raise
 pub impl @template.Render for FiltersPage
 
 // Type aliases
 
 // Traits
-

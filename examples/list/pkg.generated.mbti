@@ -28,9 +28,9 @@ pub(all) struct TodoList {
 pub(all) struct TodoListPage {
   list : TodoList
 }
+pub fn TodoListPage::render(Self) -> String raise
 pub impl @template.Render for TodoListPage
 
 // Type aliases
 
 // Traits
-

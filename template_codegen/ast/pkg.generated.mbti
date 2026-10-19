@@ -34,17 +34,29 @@ pub(all) struct SourcePos {
   line : Int
   column : Int
 } derive(Eq, ToJson, @debug.Debug)
+pub fn SourcePos::equal(Self, Self) -> Bool
+pub fn SourcePos::not_equal(Self, Self) -> Bool
+pub fn SourcePos::to_json(Self) -> Json
+pub fn SourcePos::to_repr(Self) -> @debug.Repr
 
 pub(all) struct SourceSpan {
   file : String
   start : SourcePos
   end : SourcePos
 } derive(Eq, ToJson, @debug.Debug)
+pub fn SourceSpan::equal(Self, Self) -> Bool
+pub fn SourceSpan::not_equal(Self, Self) -> Bool
+pub fn SourceSpan::to_json(Self) -> Json
+pub fn SourceSpan::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Template {
   path : String
   nodes : Array[TemplateNode]
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Template::equal(Self, Self) -> Bool
+pub fn Template::not_equal(Self, Self) -> Bool
+pub fn Template::to_json(Self) -> Json
+pub fn Template::to_repr(Self) -> @debug.Repr
 
 pub(all) struct TemplateBinding {
   source_path : String
@@ -53,6 +65,10 @@ pub(all) struct TemplateBinding {
   field_names : Array[String]
   span : SourceSpan
 } derive(Eq, ToJson, @debug.Debug)
+pub fn TemplateBinding::equal(Self, Self) -> Bool
+pub fn TemplateBinding::not_equal(Self, Self) -> Bool
+pub fn TemplateBinding::to_json(Self) -> Json
+pub fn TemplateBinding::to_repr(Self) -> @debug.Repr
 
 pub(all) enum TemplateNode {
   Text(text~ : String, span~ : SourceSpan)
@@ -62,8 +78,11 @@ pub(all) enum TemplateNode {
   Include(path~ : String, span~ : SourceSpan)
   Comment(text~ : String, span~ : SourceSpan)
 } derive(Eq, ToJson, @debug.Debug)
+pub fn TemplateNode::equal(Self, Self) -> Bool
+pub fn TemplateNode::not_equal(Self, Self) -> Bool
+pub fn TemplateNode::to_json(Self) -> Json
+pub fn TemplateNode::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 
 // Traits
-

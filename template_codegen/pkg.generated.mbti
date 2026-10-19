@@ -30,6 +30,9 @@ pub(all) suberror CodegenError {
   MissingTemplate(String)
   UnexpandedInclude(path~ : String)
 } derive(Eq, @debug.Debug)
+pub fn CodegenError::equal(Self, Self) -> Bool
+pub fn CodegenError::not_equal(Self, Self) -> Bool
+pub fn CodegenError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub(all) struct TemplateInput {
@@ -43,4 +46,3 @@ pub(all) struct TemplateInput {
 // Type aliases
 
 // Traits
-

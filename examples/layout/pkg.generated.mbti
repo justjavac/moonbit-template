@@ -17,9 +17,9 @@ pub(all) struct LayoutPage {
   title : String
   body : @template.SafeHtml
 }
+pub fn LayoutPage::render(Self) -> String raise
 pub impl @template.Render for LayoutPage
 
 // Type aliases
 
 // Traits
-

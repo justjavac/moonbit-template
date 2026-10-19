@@ -35,12 +35,16 @@ pub(all) suberror RenderError {
   Message(String)
   InvalidInclude(String)
 } derive(Eq, @debug.Debug)
+pub fn RenderError::equal(Self, Self) -> Bool
+pub fn RenderError::not_equal(Self, Self) -> Bool
+pub fn RenderError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub struct SafeHtml {
   value : String
 }
 pub fn SafeHtml::new(String) -> Self
+pub fn SafeHtml::output(Self, &Logger) -> Unit
 pub fn SafeHtml::to_string(Self) -> String
 pub impl Show for SafeHtml
 
@@ -50,4 +54,3 @@ pub impl Show for SafeHtml
 pub(open) trait Render {
   fn render(Self) -> String raise
 }
-
