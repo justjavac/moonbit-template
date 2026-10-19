@@ -9,6 +9,7 @@ pub(all) struct LayoutPage {
   body : @template.SafeHtml
 }
 
+///|
 pub extend LayoutPage with @template.Render::{render}
 
 ///|

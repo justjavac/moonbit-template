@@ -7,13 +7,15 @@
 /// renderer that still contains static include nodes.
 pub(all) suberror CodegenError {
   InvalidArguments(String)
-  InvalidBinding(source_path~ : String, offset~ : Int, message~ : String)
+  InvalidBinding(source_path~ : String, offset~ : Int32, message~ : String)
   MissingTemplate(String)
   UnexpandedInclude(path~ : String)
 } derive(Eq, Debug)
 
+///|
 pub extend CodegenError with Eq::{equal, not_equal}
 
+///|
 pub extend CodegenError with @debug.Debug::{to_repr}
 
 ///|
@@ -41,10 +43,10 @@ pub fn template_input(
   source_path~ : String,
   template_path~ : String,
   struct_name~ : String,
-  field_names? : Array[String] = [],
+  field_names~ : Array[String] = [],
   content~ : String,
 ) -> TemplateInput {
-  { source_path, template_path, struct_name, field_names, content }
+  { source_path, template_path, struct_name, field_names, content, }
 }
 
 ///|
@@ -248,7 +250,7 @@ fn parse_args(args : Array[String]) -> CliOptions raise CodegenError {
   if output_path.is_empty() {
     raise InvalidArguments("missing -o <output>")
   }
-  { scan_files, output_path }
+  { scan_files, output_path, }
 }
 
 ///|
@@ -411,8 +413,8 @@ fn prefix_self_fields(code : String, field_names : Array[String]) -> String {
 /// Returns whether an identifier should be rewritten as a template field.
 fn should_prefix_field(
   code : String,
-  start : Int,
-  end : Int,
+  start : Int32,
+  end : Int32,
   ident : String,
   field_names : Array[String],
 ) -> Bool {
@@ -440,10 +442,10 @@ fn should_prefix_field(
 /// Copies a quoted literal without rewriting identifiers inside it.
 fn copy_quoted_literal(
   source : String,
-  offset : Int,
+  offset : Int32,
   quote : Char,
   out : StringBuilder,
-) -> Int {
+) -> Int32 {
   let len = source.length()
   out.write_char(quote)
   let mut current = offset + 1
@@ -474,7 +476,7 @@ fn copy_quoted_literal(
 
 ///|
 /// Copies whitespace from `offset` into `out` and returns the first non-space offset.
-fn copy_ws(source : String, offset : Int, out : StringBuilder) -> Int {
+fn copy_ws(source : String, offset : Int32, out : StringBuilder) -> Int32 {
   let len = source.length()
   let mut current = offset
   while current < len {
@@ -491,7 +493,7 @@ fn copy_ws(source : String, offset : Int, out : StringBuilder) -> Int {
 
 ///|
 /// Reads a quoted string starting at `offset`.
-fn read_quoted_string(source : String, offset : Int) -> (String, Int)? {
+fn read_quoted_string(source : String, offset : Int32) -> (String, Int32)? {
   let len = source.length()
   let start = skip_ws(source, offset)
   if start >= len || source.unsafe_substring(start~, end=start + 1) != "\"" {
@@ -514,7 +516,7 @@ fn read_quoted_string(source : String, offset : Int) -> (String, Int)? {
 
 ///|
 /// Locates the struct name following an attribute.
-fn find_struct_name(source : String, offset : Int) -> (String, Int, Int)? {
+fn find_struct_name(source : String, offset : Int32) -> (String, Int32, Int32)? {
   let len = source.length()
   let rest = source.unsafe_substring(start=offset, end=len)
   match rest.find("struct") {
@@ -545,7 +547,7 @@ fn find_struct_name(source : String, offset : Int) -> (String, Int, Int)? {
 
 ///|
 /// Reads field names from a struct declaration for implicit `self.` rewriting.
-fn read_struct_fields(source : String, struct_start : Int) -> Array[String] {
+fn read_struct_fields(source : String, struct_start : Int32) -> Array[String] {
   let fields : Array[String] = []
   match find_char_from(source, struct_start, '{') {
     None => fields
@@ -575,7 +577,7 @@ fn read_struct_fields(source : String, struct_start : Int) -> Array[String] {
 
 ///|
 /// Finds the first target character at or after `offset`.
-fn find_char_from(source : String, offset : Int, target : Char) -> Int? {
+fn find_char_from(source : String, offset : Int32, target : Char) -> Int32? {
   let len = source.length()
   let mut current = offset
   while current < len {
@@ -590,7 +592,7 @@ fn find_char_from(source : String, offset : Int, target : Char) -> Int? {
 
 ///|
 /// Finds the closing brace that matches an opening brace.
-fn find_matching_brace(source : String, open : Int) -> Int {
+fn find_matching_brace(source : String, open : Int32) -> Int32 {
   let len = source.length()
   let mut depth = 0
   let mut current = open
@@ -612,7 +614,7 @@ fn find_matching_brace(source : String, open : Int) -> Int {
 
 ///|
 /// Skips ASCII whitespace.
-fn skip_ws(source : String, offset : Int) -> Int {
+fn skip_ws(source : String, offset : Int32) -> Int32 {
   let len = source.length()
   let mut current = offset
   while current < len {
@@ -626,7 +628,7 @@ fn skip_ws(source : String, offset : Int) -> Int {
 
 ///|
 /// Returns the end offset of an identifier.
-fn take_ident(source : String, offset : Int) -> Int {
+fn take_ident(source : String, offset : Int32) -> Int32 {
   let len = source.length()
   let mut current = offset
   while current < len {
@@ -734,7 +736,7 @@ fn join_path(base : String, child : String) -> String {
 
 ///|
 /// Computes a 1-based source position for scanner diagnostics.
-fn position_at(source : String, offset : Int) -> @ast.SourcePos {
+fn position_at(source : String, offset : Int32) -> @ast.SourcePos {
   let prefix = source.unsafe_substring(start=0, end=offset)
   let mut line = 1
   let mut column = 1

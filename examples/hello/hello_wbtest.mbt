@@ -21,7 +21,7 @@ test "render hello example" {
 
 ///|
 test "render member branch" {
-  let user = User::{ name: " Grace ", admin: false }
+  let user = User::{ name: " Grace ", admin: false, }
   let page = ProfileCard::{
     user,
     bio: @template.safe_html("<p>Compiler pioneer.</p>"),

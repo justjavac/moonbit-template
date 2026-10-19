@@ -6,12 +6,14 @@
 /// path. The parser keeps these errors small so callers can format diagnostics
 /// for their own tools.
 pub(all) suberror ParseError {
-  UnclosedTag(path~ : String, offset~ : Int)
-  InvalidInclude(path~ : String, offset~ : Int, content~ : String)
+  UnclosedTag(path~ : String, offset~ : Int32)
+  InvalidInclude(path~ : String, offset~ : Int32, content~ : String)
 } derive(Eq, Debug)
 
+///|
 pub extend ParseError with Eq::{equal, not_equal}
 
+///|
 pub extend ParseError with @debug.Debug::{to_repr}
 
 ///|
@@ -58,8 +60,8 @@ fn push_text(
   nodes : Array[@ast.TemplateNode],
   path : String,
   source : String,
-  start : Int,
-  end : Int,
+  start : Int32,
+  end : Int32,
 ) -> Unit {
   if start < end {
     let text = source.unsafe_substring(start~, end~)
@@ -73,8 +75,8 @@ fn parse_tag(
   path : String,
   source : String,
   body : String,
-  start : Int,
-  end : Int,
+  start : Int32,
+  end : Int32,
 ) -> @ast.TemplateNode raise ParseError {
   let span = source_span(path, source, start, end)
   if body.has_prefix("=") {
@@ -125,8 +127,8 @@ fn parse_include_path(content : String) -> String? {
 fn source_span(
   path : String,
   source : String,
-  start : Int,
-  end : Int,
+  start : Int32,
+  end : Int32,
 ) -> @ast.SourceSpan {
   @ast.span(
     file=path,
@@ -137,7 +139,7 @@ fn source_span(
 
 ///|
 /// Computes a 1-based line and column for a string offset.
-fn position_at(source : String, offset : Int) -> @ast.SourcePos {
+fn position_at(source : String, offset : Int32) -> @ast.SourcePos {
   let prefix = source.unsafe_substring(start=0, end=offset)
   let mut line = 1
   let mut column = 1

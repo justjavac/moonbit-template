@@ -4,21 +4,24 @@
 /// `offset` is the raw string offset used by scanners, while `line` and
 /// `column` are intended for human-readable diagnostics.
 pub(all) struct SourcePos {
-  offset : Int
-  line : Int
-  column : Int
+  offset : Int32
+  line : Int32
+  column : Int32
 } derive(Eq, ToJson, Debug)
 
+///|
 pub extend SourcePos with Eq::{equal, not_equal}
 
+///|
 pub extend SourcePos with ToJson::{to_json}
 
+///|
 pub extend SourcePos with @debug.Debug::{to_repr}
 
 ///|
 /// Creates a source position for diagnostics and source spans.
-pub fn pos(offset~ : Int, line~ : Int, column~ : Int) -> SourcePos {
-  { offset, line, column }
+pub fn pos(offset~ : Int32, line~ : Int32, column~ : Int32) -> SourcePos {
+  { offset, line, column, }
 }
 
 ///|
@@ -33,16 +36,19 @@ pub(all) struct SourceSpan {
   end : SourcePos
 } derive(Eq, ToJson, Debug)
 
+///|
 pub extend SourceSpan with Eq::{equal, not_equal}
 
+///|
 pub extend SourceSpan with ToJson::{to_json}
 
+///|
 pub extend SourceSpan with @debug.Debug::{to_repr}
 
 ///|
 /// Creates a half-open source span for a single file.
 pub fn span(file~ : String, start~ : SourcePos, end~ : SourcePos) -> SourceSpan {
-  { file, start, end }
+  { file, start, end, }
 }
 
 ///|
@@ -61,10 +67,13 @@ pub(all) enum TemplateNode {
   Comment(text~ : String, span~ : SourceSpan)
 } derive(Eq, ToJson, Debug)
 
+///|
 pub extend TemplateNode with Eq::{equal, not_equal}
 
+///|
 pub extend TemplateNode with ToJson::{to_json}
 
+///|
 pub extend TemplateNode with @debug.Debug::{to_repr}
 
 ///|
@@ -128,16 +137,19 @@ pub(all) struct Template {
   nodes : Array[TemplateNode]
 } derive(Eq, ToJson, Debug)
 
+///|
 pub extend Template with Eq::{equal, not_equal}
 
+///|
 pub extend Template with ToJson::{to_json}
 
+///|
 pub extend Template with @debug.Debug::{to_repr}
 
 ///|
 /// Creates a parsed template document from a path and node sequence.
 pub fn template(path~ : String, nodes~ : Array[TemplateNode]) -> Template {
-  { path, nodes }
+  { path, nodes, }
 }
 
 ///|
@@ -154,10 +166,13 @@ pub(all) struct TemplateBinding {
   span : SourceSpan
 } derive(Eq, ToJson, Debug)
 
+///|
 pub extend TemplateBinding with Eq::{equal, not_equal}
 
+///|
 pub extend TemplateBinding with ToJson::{to_json}
 
+///|
 pub extend TemplateBinding with @debug.Debug::{to_repr}
 
 ///|
@@ -169,8 +184,8 @@ pub fn template_binding(
   source_path~ : String,
   template_path~ : String,
   struct_name~ : String,
-  field_names? : Array[String] = [],
+  field_names~ : Array[String] = [],
   span~ : SourceSpan,
 ) -> TemplateBinding {
-  { source_path, template_path, struct_name, field_names, span }
+  { source_path, template_path, struct_name, field_names, span, }
 }

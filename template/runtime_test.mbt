@@ -41,6 +41,6 @@ test "write helpers append raw and escaped text" {
 
 ///|
 test "render trait propagates checked style" {
-  let page = TinyPage::{ title: "Hello" }
+  let page = TinyPage::{ title: "Hello", }
   inspect(try! @template.Render::render(page), content="<h1>Hello</h1>")
 }

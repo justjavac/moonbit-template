@@ -10,6 +10,7 @@ pub(all) struct FiltersPage {
   summary : String
 }
 
+///|
 pub extend FiltersPage with @template.Render::{render}
 
 ///|
@@ -17,7 +18,7 @@ pub extend FiltersPage with @template.Render::{render}
 ///
 /// Empty `summary` demonstrates the `default` filter in the template.
 pub fn sample_page() -> FiltersPage {
-  { title: " moonbit templates ", slug: "MoonBit Templates", summary: "" }
+  { title: " moonbit templates ", slug: "MoonBit Templates", summary: "", }
 }
 
 ///|

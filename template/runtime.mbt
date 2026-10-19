@@ -20,8 +20,10 @@ pub(all) suberror RenderError {
   InvalidInclude(String)
 } derive(Eq, Debug)
 
+///|
 pub extend RenderError with Eq::{equal, not_equal}
 
+///|
 pub extend RenderError with @debug.Debug::{to_repr}
 
 ///|
@@ -67,6 +69,7 @@ pub impl Show for SafeHtml with fn output(self, logger) {
   logger.write_string(self.value)
 }
 
+///|
 pub extend SafeHtml with Show::{output}
 
 ///|

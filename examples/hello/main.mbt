@@ -27,6 +27,7 @@ pub(all) struct ProfileCard {
   bio : @template.SafeHtml
 }
 
+///|
 pub extend ProfileCard with @template.Render::{render}
 
 ///|
@@ -35,7 +36,7 @@ pub extend ProfileCard with @template.Render::{render}
 /// Tests call this helper directly, while `main` prints the same rendered page
 /// for users running the example from the command line.
 pub fn render_demo() -> String raise {
-  let user = User::{ name: " Ada ", admin: true }
+  let user = User::{ name: " Ada ", admin: true, }
   let page = ProfileCard::{
     user,
     bio: @template.safe_html("<p>Loves analytical engines.</p>"),
